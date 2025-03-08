@@ -1,0 +1,34 @@
+{
+  "name": "@ayarayarovich/react-modals",
+  "version": "1.0.0",
+  "description": "Modals manager for React",
+  "main": "index.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayarayarovich/react-modals.git"
+  },
+  "keywords": [
+    "react",
+    "modal",
+    "modals",
+    "manager"
+  ],
+  "exports": {
+    "default": "./index.ts"
+  },
+  "author": "Ayyar Khalilov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ayarayarovich/react-modals/issues"
+  },
+  "homepage": "https://github.com/ayarayarovich/react-modals#readme",
+  "peerDependencies": {
+    "react": "^18.3.1"
+  },
+  "dependencies": {
+    "immer": "^10.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18"
+  }
+}
