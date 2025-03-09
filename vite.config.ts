@@ -10,6 +10,12 @@ export default defineConfig({
       formats: ["es", "cjs"],
       fileName: "index",
     },
+    rollupOptions: {
+      external: ["react", "react-dom", "react/jsx-runtime"],
+    },
+  },
+  resolve: {
+    dedupe: ["react", "react-dom"],
   },
   plugins: [dts()],
 });
