@@ -1,4 +1,3 @@
-import * as React from "react";
 import { ComponentType, Fragment } from "react";
 
 import { ModalInstanceProvider } from "./ModalInstanceProvider";
