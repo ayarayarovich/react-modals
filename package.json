@@ -2,7 +2,9 @@
   "name": "@ayarayarovich/react-modals",
   "version": "1.0.1",
   "description": "Modals manager for React",
-  "main": "index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ayarayarovich/react-modals.git"
@@ -11,10 +13,12 @@
     "react",
     "modal",
     "modals",
-    "manager"
+    "manager",
+    "typescript"
   ],
-  "exports": {
-    "default": "./index.ts"
+  "scripts": {
+    "build": "vite build",
+    "prepublish": "npm run build"
   },
   "author": "Ayyar Khalilov",
   "license": "MIT",
@@ -29,6 +33,9 @@
     "immer": "^10.1.1"
   },
   "devDependencies": {
-    "@types/react": "^18.3.18"
+    "@types/node": "^22.13.10",
+    "@types/react": "^18.3.18",
+    "vite": "^6.2.1",
+    "vite-plugin-dts": "^4.5.3"
   }
 }
