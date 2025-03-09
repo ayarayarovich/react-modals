@@ -11,3 +11,10 @@ export const createModalHook = <TData>(component: ComponentType) => {
     };
   };
 };
+
+export const createModal = <TData>(component: ComponentType) => {
+  return {
+    Component: component,
+    use: createModalHook<TData>(component),
+  };
+};
