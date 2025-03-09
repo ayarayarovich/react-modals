@@ -59,19 +59,19 @@ function ne(e) {
   return r === Object ? !0 : typeof r == "function" && Function.toString.call(r) === ye;
 }
 function S(e, t) {
-  M(e) === 0 ? Reflect.ownKeys(e).forEach((r) => {
+  E(e) === 0 ? Reflect.ownKeys(e).forEach((r) => {
     t(r, e[r], e);
   }) : e.forEach((r, n) => t(n, r, e));
 }
-function M(e) {
+function E(e) {
   const t = e[a];
   return t ? t.type_ : Array.isArray(e) ? 1 : A(e) ? 2 : N(e) ? 3 : 0;
 }
 function R(e, t) {
-  return M(e) === 2 ? e.has(t) : Object.prototype.hasOwnProperty.call(e, t);
+  return E(e) === 2 ? e.has(t) : Object.prototype.hasOwnProperty.call(e, t);
 }
 function oe(e, t, r) {
-  const n = M(e);
+  const n = E(e);
   n === 2 ? e.set(t, r) : n === 3 ? e.add(r) : e[t] = r;
 }
 function pe(e, t) {
@@ -118,7 +118,7 @@ function T(e, t) {
   }
 }
 function B(e, t = !1) {
-  return I(e) || O(e) || !m(e) || (M(e) > 1 && (e.set = e.add = e.clear = e.delete = me), Object.freeze(e), t && Object.entries(e).forEach(([r, n]) => B(n, !0))), e;
+  return I(e) || O(e) || !m(e) || (E(e) > 1 && (e.set = e.add = e.clear = e.delete = me), Object.freeze(e), t && Object.entries(e).forEach(([r, n]) => B(n, !0))), e;
 }
 function me() {
   u(2);
@@ -165,7 +165,7 @@ function ge(e) {
 function Y(e, t) {
   t.unfinalizedDrafts_ = t.drafts_.length;
   const r = t.drafts_[0];
-  return e !== void 0 && e !== r ? (r[a].modified_ && (K(t), u(4)), m(e) && (e = C(t, e), t.parent_ || E(t, e)), t.patches_ && h("Patches").generateReplacementPatches_(
+  return e !== void 0 && e !== r ? (r[a].modified_ && (K(t), u(4)), m(e) && (e = C(t, e), t.parent_ || M(t, e)), t.patches_ && h("Patches").generateReplacementPatches_(
     r[a].base_,
     e,
     t.patches_,
@@ -184,7 +184,7 @@ function C(e, t, r) {
   if (n.scope_ !== e)
     return t;
   if (!n.modified_)
-    return E(e, n.base_, !0), n.base_;
+    return M(e, n.base_, !0), n.base_;
   if (!n.finalized_) {
     n.finalized_ = !0, n.scope_.unfinalizedDrafts_--;
     const o = n.copy_;
@@ -192,7 +192,7 @@ function C(e, t, r) {
     n.type_ === 3 && (i = new Set(o), o.clear(), s = !0), S(
       i,
       (c, f) => Z(e, n, o, c, f, r, s)
-    ), E(e, o, !1), r && e.patches_ && h("Patches").generatePatches_(
+    ), M(e, o, !1), r && e.patches_ && h("Patches").generatePatches_(
       n,
       r,
       e.patches_,
@@ -213,10 +213,10 @@ function Z(e, t, r, n, o, i, s) {
   if (m(o) && !I(o)) {
     if (!e.immer_.autoFreeze_ && e.unfinalizedDrafts_ < 1)
       return;
-    C(e, o), (!t || !t.scope_.parent_) && typeof n != "symbol" && Object.prototype.propertyIsEnumerable.call(r, n) && E(e, o);
+    C(e, o), (!t || !t.scope_.parent_) && typeof n != "symbol" && Object.prototype.propertyIsEnumerable.call(r, n) && M(e, o);
   }
 }
-function E(e, t, r = !1) {
+function M(e, t, r = !1) {
   !e.parent_ && e.immer_.autoFreeze_ && e.canAutoFreeze_ && B(t, r);
 }
 function be(e, t) {
@@ -466,7 +466,7 @@ const V = /* @__PURE__ */ (() => {
   let e = 0;
   const t = /* @__PURE__ */ new WeakMap();
   return (r) => (t.has(r) || t.set(r, ++e), t.get(r));
-})(), H = ee(null), Ce = ({ children: e }) => {
+})(), H = ee(null), Me = ({ children: e }) => {
   const [t, r] = le({}), n = z((f) => V(f), []), o = z(
     (f, d) => {
       const _ = n(f);
@@ -540,20 +540,24 @@ const V = /* @__PURE__ */ (() => {
     [i, t, r]
   );
   return /* @__PURE__ */ b(ue.Provider, { value: s, children: e });
-}, Ee = () => U(ue), Me = ({ Component: e, ComponentWrapper: t }) => {
+}, Ee = () => U(ue), Ae = ({ Component: e, ComponentWrapper: t }) => {
   const { getComponentInstances: r } = fe(), n = r(e), o = t ?? de;
   return /* @__PURE__ */ b(ae, { children: n.map((i) => /* @__PURE__ */ b(Fe, { data: i.data, isOpen: i.isOpen, Component: e, children: /* @__PURE__ */ b(o, { children: /* @__PURE__ */ b(e, {}) }) }, i.id)) });
-}, Ae = (e) => () => {
+}, ve = (e) => () => {
   const t = De(e);
   return {
     open: t.open,
     close: t.close
   };
-};
+}, Ne = (e) => ({
+  Component: e,
+  use: ve(e)
+});
 export {
-  Ce as ModalProvider,
-  Me as ModalRenderer,
-  Ae as createModalHook,
+  Me as ModalProvider,
+  Ae as ModalRenderer,
+  Ne as createModal,
+  ve as createModalHook,
   De as useModal,
   Ee as useModalInstance
 };
