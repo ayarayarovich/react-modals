@@ -1,6 +1,6 @@
 {
   "name": "@ayarayarovich/react-modals",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Modals manager for React",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
