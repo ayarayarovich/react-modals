@@ -53,7 +53,6 @@ export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
 
           const lastInstance = instances[instances.length - 1];
           const nextId = (lastInstance?.id ?? 0) + 1;
-          console.log(nextId);
 
           instances.push({
             id: nextId,
