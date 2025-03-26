@@ -46,7 +46,7 @@ function O(e) {
 }
 function m(e) {
   var t;
-  return e ? ne(e) || Array.isArray(e) || !!e[q] || !!((t = e.constructor) != null && t[q]) || A(e) || N(e) : !1;
+  return e ? ne(e) || Array.isArray(e) || !!e[q] || !!((t = e.constructor) != null && t[q]) || E(e) || A(e) : !1;
 }
 var ye = Object.prototype.constructor.toString();
 function ne(e) {
@@ -58,38 +58,38 @@ function ne(e) {
   const r = Object.hasOwnProperty.call(t, "constructor") && t.constructor;
   return r === Object ? !0 : typeof r == "function" && Function.toString.call(r) === ye;
 }
-function S(e, t) {
-  E(e) === 0 ? Reflect.ownKeys(e).forEach((r) => {
+function v(e, t) {
+  M(e) === 0 ? Reflect.ownKeys(e).forEach((r) => {
     t(r, e[r], e);
   }) : e.forEach((r, n) => t(n, r, e));
 }
-function E(e) {
+function M(e) {
   const t = e[a];
-  return t ? t.type_ : Array.isArray(e) ? 1 : A(e) ? 2 : N(e) ? 3 : 0;
+  return t ? t.type_ : Array.isArray(e) ? 1 : E(e) ? 2 : A(e) ? 3 : 0;
 }
 function R(e, t) {
-  return E(e) === 2 ? e.has(t) : Object.prototype.hasOwnProperty.call(e, t);
+  return M(e) === 2 ? e.has(t) : Object.prototype.hasOwnProperty.call(e, t);
 }
 function oe(e, t, r) {
-  const n = E(e);
+  const n = M(e);
   n === 2 ? e.set(t, r) : n === 3 ? e.add(r) : e[t] = r;
 }
 function pe(e, t) {
   return e === t ? e !== 0 || 1 / e === 1 / t : e !== e && t !== t;
 }
-function A(e) {
+function E(e) {
   return e instanceof Map;
 }
-function N(e) {
+function A(e) {
   return e instanceof Set;
 }
 function p(e) {
   return e.copy_ || e.base_;
 }
 function T(e, t) {
-  if (A(e))
+  if (E(e))
     return new Map(e);
-  if (N(e))
+  if (A(e))
     return new Set(e);
   if (Array.isArray(e))
     return Array.prototype.slice.call(e);
@@ -118,12 +118,12 @@ function T(e, t) {
   }
 }
 function B(e, t = !1) {
-  return I(e) || O(e) || !m(e) || (E(e) > 1 && (e.set = e.add = e.clear = e.delete = me), Object.freeze(e), t && Object.entries(e).forEach(([r, n]) => B(n, !0))), e;
+  return N(e) || O(e) || !m(e) || (M(e) > 1 && (e.set = e.add = e.clear = e.delete = me), Object.freeze(e), t && Object.entries(e).forEach(([r, n]) => B(n, !0))), e;
 }
 function me() {
   u(2);
 }
-function I(e) {
+function N(e) {
   return Object.isFrozen(e);
 }
 var he = {};
@@ -165,34 +165,34 @@ function ge(e) {
 function Y(e, t) {
   t.unfinalizedDrafts_ = t.drafts_.length;
   const r = t.drafts_[0];
-  return e !== void 0 && e !== r ? (r[a].modified_ && (K(t), u(4)), m(e) && (e = C(t, e), t.parent_ || M(t, e)), t.patches_ && h("Patches").generateReplacementPatches_(
+  return e !== void 0 && e !== r ? (r[a].modified_ && (K(t), u(4)), m(e) && (e = S(t, e), t.parent_ || C(t, e)), t.patches_ && h("Patches").generateReplacementPatches_(
     r[a].base_,
     e,
     t.patches_,
     t.inversePatches_
-  )) : e = C(t, r, []), K(t), t.patches_ && t.patchListener_(t.patches_, t.inversePatches_), e !== re ? e : void 0;
+  )) : e = S(t, r, []), K(t), t.patches_ && t.patchListener_(t.patches_, t.inversePatches_), e !== re ? e : void 0;
 }
-function C(e, t, r) {
-  if (I(t))
+function S(e, t, r) {
+  if (N(t))
     return t;
   const n = t[a];
   if (!n)
-    return S(
+    return v(
       t,
       (o, i) => Z(e, n, t, o, i, r)
     ), t;
   if (n.scope_ !== e)
     return t;
   if (!n.modified_)
-    return M(e, n.base_, !0), n.base_;
+    return C(e, n.base_, !0), n.base_;
   if (!n.finalized_) {
     n.finalized_ = !0, n.scope_.unfinalizedDrafts_--;
     const o = n.copy_;
     let i = o, s = !1;
-    n.type_ === 3 && (i = new Set(o), o.clear(), s = !0), S(
+    n.type_ === 3 && (i = new Set(o), o.clear(), s = !0), v(
       i,
       (c, f) => Z(e, n, o, c, f, r, s)
-    ), M(e, o, !1), r && e.patches_ && h("Patches").generatePatches_(
+    ), C(e, o, !1), r && e.patches_ && h("Patches").generatePatches_(
       n,
       r,
       e.patches_,
@@ -204,19 +204,19 @@ function C(e, t, r) {
 function Z(e, t, r, n, o, i, s) {
   if (process.env.NODE_ENV !== "production" && o === r && u(5), O(o)) {
     const c = i && t && t.type_ !== 3 && // Set objects are atomic since they have no keys.
-    !R(t.assigned_, n) ? i.concat(n) : void 0, f = C(e, o, c);
+    !R(t.assigned_, n) ? i.concat(n) : void 0, f = S(e, o, c);
     if (oe(r, n, f), O(f))
       e.canAutoFreeze_ = !1;
     else
       return;
   } else s && r.add(o);
-  if (m(o) && !I(o)) {
+  if (m(o) && !N(o)) {
     if (!e.immer_.autoFreeze_ && e.unfinalizedDrafts_ < 1)
       return;
-    C(e, o), (!t || !t.scope_.parent_) && typeof n != "symbol" && Object.prototype.propertyIsEnumerable.call(r, n) && M(e, o);
+    S(e, o), (!t || !t.scope_.parent_) && typeof n != "symbol" && Object.prototype.propertyIsEnumerable.call(r, n) && C(e, o);
   }
 }
-function M(e, t, r = !1) {
+function C(e, t, r = !1) {
   !e.parent_ && e.immer_.autoFreeze_ && e.canAutoFreeze_ && B(t, r);
 }
 function be(e, t) {
@@ -304,7 +304,7 @@ var G = {
     u(12);
   }
 }, F = {};
-S(G, (e, t) => {
+v(G, (e, t) => {
   F[e] = function() {
     return arguments[0] = arguments[0][0], t.apply(this, arguments);
   };
@@ -432,14 +432,14 @@ var Oe = class {
   }
 };
 function W(e, t) {
-  const r = A(e) ? h("MapSet").proxyMap_(e, t) : N(e) ? h("MapSet").proxySet_(e, t) : be(e, t);
+  const r = E(e) ? h("MapSet").proxyMap_(e, t) : A(e) ? h("MapSet").proxySet_(e, t) : be(e, t);
   return (t ? t.scope_ : ie()).drafts_.push(r), r;
 }
 function ze(e) {
   return O(e) || u(10, e), ce(e);
 }
 function ce(e) {
-  if (!m(e) || I(e))
+  if (!m(e) || N(e))
     return e;
   const t = e[a];
   let r;
@@ -449,7 +449,7 @@ function ce(e) {
     t.finalized_ = !0, r = T(e, t.scope_.immer_.useStrictShallowCopy_);
   } else
     r = T(e, !0);
-  return S(r, (n, o) => {
+  return v(r, (n, o) => {
     oe(r, n, ce(o));
   }), t && (t.finalized_ = !1), r;
 }
@@ -473,9 +473,9 @@ const V = /* @__PURE__ */ (() => {
       r(
         L((P) => {
           P[_] || (P[_] = []);
-          const y = P[_], g = y[y.length - 1], v = ((g == null ? void 0 : g.id) ?? 0) + 1;
-          console.log(v), y.push({
-            id: v,
+          const y = P[_], g = y[y.length - 1], I = ((g == null ? void 0 : g.id) ?? 0) + 1;
+          y.push({
+            id: I,
             data: d,
             isOpen: !1
           });
@@ -493,7 +493,7 @@ const V = /* @__PURE__ */ (() => {
       const d = n(f);
       r(
         L((_) => {
-          _[d] || (_[d] = []), _[d] = _[d].filter((v) => !v._scheduledForDeletion);
+          _[d] || (_[d] = []), _[d] = _[d].filter((I) => !I._scheduledForDeletion);
           const P = _[d], y = P[0];
           if (!y) return;
           y.isOpen = !1, y._scheduledForDeletion = !0;
